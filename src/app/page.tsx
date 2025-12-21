@@ -263,7 +263,7 @@ function AboutSection() {
   );
 }
 
-const logos = ["SPOTIFY", "GOOGLE", "AIRBNB", "STRIPE", "FIGMA", "SLACK", "NOTION"];
+const logos = ["NEXT.JS", "REACT", "TAILWIND", "VERCEL", "PRISMA", "STRIPE", "FIGMA"];
 
 function LogoMarquee() {
   return (
@@ -756,10 +756,18 @@ function ContactSection() {
         </motion.div>
 
         <div className="flex flex-wrap items-center justify-center gap-8">
-          {["instagram", "Twitter", "Facebook", "Dribbble", "LinkedIn"].map((social, i) => (
+          {[
+            { name: "Instagram", href: "https://www.instagram.com/saltech.pvt/" },
+            { name: "Twitter", href: "#" },
+            { name: "Facebook", href: "#" },
+            { name: "Dribbble", href: "#" },
+            { name: "LinkedIn", href: "#" },
+          ].map((social, i) => (
             <motion.a
               key={i}
-              href="#"
+              href={social.href}
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-muted-foreground font-body"
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -767,7 +775,7 @@ function ContactSection() {
               viewport={{ once: true }}
               transition={{ type: "spring", stiffness: 150, damping: 12, delay: 0.5 + i * 0.06 }}
             >
-              {social}
+              {social.name}
             </motion.a>
           ))}
         </div>
