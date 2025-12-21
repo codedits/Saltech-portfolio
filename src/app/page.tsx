@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Calendar, ChevronDown, Download, Mail, Quote, Sparkles, Star, Subscript } from "lucide-react";
 // Use public folder for Next.js static images
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import Reveal from "@/components/ui/reveal";
 
 function Navigation() {
@@ -46,28 +47,34 @@ function HeroSection() {
       <div className="container mx-auto px-6 md:px-12 pt-8">
         <div className="flex items-center gap-2 text-accent text-sm font-medium animate-fade-up">
           <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-          PROJECT WILL KICKOFF WITHIN 24 HOURS
+          WE BUILD WEBSITES, STORES & APPS — DEPLOYABLE WITHIN 24 HOURS
         </div>
       </div>
 
       <div className="container mx-auto px-6 md:px-12 mt-8 md:mt-12">
         <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-8">
           <div className="flex-1">
-            <Reveal delay={0}>
-              <h1 className="font-display font-extrabold text-[14vw] md:text-[10vw] leading-[0.85] tracking-tighter text-foreground">
-                SALTECH
-              </h1>
-            </Reveal>
-            <Reveal delay={0.12}>
-              <h1 className="font-display font-extrabold text-[14vw] md:text-[10vw] leading-[0.85] tracking-tighter text-foreground">
-                .PVT
-              </h1>
-            </Reveal>
+            <motion.h1
+              initial={{ opacity: 0, y: 60 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              className="font-display font-extrabold text-[14vw] md:text-[10vw] leading-[0.85] tracking-tighter text-foreground"
+            >
+              SALTECH
+            </motion.h1>
+            <motion.h1
+              initial={{ opacity: 0, y: 60 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut", delay: 0.15 }}
+              className="font-display font-extrabold text-[14vw] md:text-[10vw] leading-[0.85] tracking-tighter text-foreground"
+            >
+              .PVT
+            </motion.h1>
           </div>
 
           <div className="md:max-w-sm md:pt-8 space-y-6 animate-fade-up" style={{ animationDelay: "0.2s" }}>
             <p className="text-muted-foreground font-body leading-relaxed">
-              <span className="text-foreground font-medium">SALTECH</span> is a new new tech startup wants to improve the automation of tasks using AI.
+              <span className="text-foreground font-medium">SALTECH</span> builds production websites, online stores, and web apps using existing tools and platforms to solve real business problems and ship fast.
             </p>
             <a href="#work" className="inline-flex items-center gap-2 text-sm font-medium border-b border-foreground pb-1 hover:text-accent hover:border-accent transition-colors group">
               SEE ALL PROJECTS (17+)
@@ -113,23 +120,48 @@ function ProjectsSection() {
         </div>
 
         <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-16 font-body">
-          Gorgeous design, Scroll-stopping content, Memorable campaigns, Development dripping with tech. The proof is in our projects.
+          AI-first products, scalable systems, human-centered interfaces, and engineering that solves real problems. The proof is in our projects.
         </p>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {projects.map((project, i) => (
-            <a key={project.id} href="#" className="group relative overflow-hidden rounded-lg aspect-[4/5] block animate-fade-up" style={{ animationDelay: `${i * 0.1}s` }}>
-              <img src={project.image} alt={project.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-              <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
+            <motion.a
+              key={project.id}
+              href="#"
+              className="group relative overflow-hidden rounded-lg aspect-[4/5] block"
+              initial={{ opacity: 0, y: 40, scale: 0.95 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              whileHover={{ y: -12 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ type: "spring", stiffness: 100, damping: 15, delay: i * 0.08 }}
+            >
+              <motion.img
+                src={project.image}
+                alt={project.title}
+                className="w-full h-full object-cover"
+                whileHover={{ scale: 1.08 }}
+                transition={{ duration: 0.5 }}
+              />
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent opacity-60"
+                whileHover={{ opacity: 0.8 }}
+                transition={{ duration: 0.4 }}
+              />
               <div className="absolute bottom-0 left-0 right-0 p-6">
                 <span className="text-accent text-xs font-medium">(cost® — {project.cost})</span>
-                <h4 className="font-display font-bold text-2xl md:text-3xl mt-2 group-hover:text-accent transition-colors">{project.title}</h4>
+                <motion.h4
+                  className="font-display font-bold text-2xl md:text-3xl mt-2"
+                  whileHover={{ color: "var(--accent)" }}
+                  transition={{ duration: 0.4 }}
+                >
+                  {project.title}
+                </motion.h4>
                 <div className="flex items-center justify-between mt-2">
                   <span className="text-muted-foreground text-xs uppercase tracking-widest">({project.category})</span>
                   <span className="text-muted-foreground text-sm">[0{i + 1}]</span>
                 </div>
               </div>
-            </a>
+            </motion.a>
           ))}
         </div>
       </div>
@@ -160,14 +192,20 @@ function AboutSection() {
           </div>
 
           <div className="space-y-8">
-            <div className="relative aspect-square max-w-md overflow-hidden rounded-lg">
+      <motion.div
+              className="relative aspect-square max-w-md overflow-hidden rounded-lg"
+              initial={{ opacity: 0, scale: 0.9, rotate: -5 }}
+              whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.8 }}
+            >
               <img src="/sal1.jpg" alt="About portrait" className="w-full h-full object-cover" />
-            </div>
+            </motion.div>
 
             <div className="space-y-4">
-              <span className="text-xs uppercase tracking-widest text-muted-foreground">[ ABOUT ME ]</span>
+              <span className="text-xs uppercase tracking-widest text-muted-foreground">[ ABOUT SALTECH ]</span>
               <p className="text-muted-foreground font-body leading-relaxed">
-               at SALTECH, we partner with growing brands and ambitious teams to shape their presence across modern digital platforms. Our process blends creativity with intelligent systems, allowing us to explore ideas faster and deliver with precision. We use technology thoughtfully to turn vision into impactful digital experiences.
+               At SALTECH, we design and build production websites, e‑commerce stores, and web applications using modern tools and platforms. We focus on practical, production-ready solutions that solve real business problems and scale.
               </p>
             </div>
 
@@ -175,17 +213,32 @@ function AboutSection() {
               <span className="text-xs text-muted-foreground mb-4 block">Honourable mention on Awwwards©</span>
               <div className="grid grid-cols-2 gap-4">
                 {awards.map((award, i) => (
-                  <a key={i} href="#" className="group p-4 border border-border hover:border-accent/50 transition-all">
-                    <span className="font-display font-semibold text-sm group-hover:text-accent transition-colors">{award.title}</span>
+                  <motion.a
+                    key={i}
+                    href="#"
+                    className="group p-4 border border-border"
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    whileHover={{ scale: 1.08, borderColor: "var(--accent)" }}
+                    viewport={{ once: true, amount: 0.3 }}
+                    transition={{ type: "spring", stiffness: 100, damping: 15, delay: i * 0.05 }}
+                  >
+                    <motion.span
+                      className="font-display font-semibold text-sm"
+                      whileHover={{ color: "var(--accent)" }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      {award.title}
+                    </motion.span>
                     <span className="block text-muted-foreground text-xs mt-1">{award.year}</span>
-                  </a>
+                  </motion.a>
                 ))}
               </div>
             </div>
 
             <div className="flex items-center gap-4">
               <span className="text-xs uppercase tracking-widest text-muted-foreground">[ MY MISSION ]</span>
-              <p className="text-sm text-foreground">Transforming how brands express themselves across modern media.</p>
+              <p className="text-sm text-foreground">Empower teams to solve real problems with practical software and web solutions.</p>
             </div>
 
             <Button variant="outline" size="sm" asChild>
@@ -235,19 +288,46 @@ function WorkMethodSection() {
 
         <div className="grid md:grid-cols-3 gap-8">
           {workMethods.map((method, i) => (
-            <div key={i} className="p-8 border border-border hover:border-accent/50 transition-all group">
+            <motion.div
+              key={i}
+              className="p-8 border border-border group"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              whileHover={{ y: -10, borderColor: "var(--accent)" }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ type: "spring", stiffness: 100, damping: 15, delay: i * 0.1 }}
+            >
               <span className="text-xs text-muted-foreground">[ {method.num} ]</span>
-              <div className="w-16 h-16 rounded-full bg-accent/10 flex items-center justify-center my-6">
+              <motion.div
+                className="w-16 h-16 rounded-full bg-accent/10 flex items-center justify-center my-6"
+                whileHover={{ scale: 1.15, rotate: 15 }}
+                transition={{ type: "spring", stiffness: 120, damping: 12 }}
+              >
                 <Sparkles className="w-8 h-8 text-accent" />
-              </div>
-              <h3 className="font-display font-bold text-xl mb-4 group-hover:text-accent transition-colors">{method.title}</h3>
+              </motion.div>
+              <motion.h3
+                className="font-display font-bold text-xl mb-4"
+                whileHover={{ color: "var(--accent)" }}
+                transition={{ duration: 0.4 }}
+              >
+                {method.title}
+              </motion.h3>
               <p className="text-muted-foreground text-sm mb-6 font-body">{method.desc}</p>
               <ul className="space-y-2">
                 {method.points.map((point, j) => (
-                  <li key={j} className="text-sm text-foreground/80">- {point}</li>
+                  <motion.li
+                    key={j}
+                    className="text-sm text-foreground/80"
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true, amount: 0.3 }}
+                    transition={{ duration: 0.5, delay: 0.25 + j * 0.08 }}
+                  >
+                    - {point}
+                  </motion.li>
                 ))}
               </ul>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
@@ -286,10 +366,10 @@ function MotivationSection() {
 }
 
 const services = [
-  { title: "UX/UI Designing", desc: "Blending Aesthetic and Innovation, My UX/UI gives you a Top Notch Client.", price: "PKR 2000", features: ["Portfolio Highlights", "Client Testimonials", "Design Process"] },
-  { title: "Graphic Design", desc: "Creating memorable visual identities that resonate with your audience.", price: "PKR 1500", features: ["Brand Identity", "Print Design", "Social Media"] },
-  { title: "Web Design", desc: "Building fast, responsive, and accessible web experiences.", price: "PKR 3000", features: ["Responsive Design", "CMS Integration", "SEO Optimization"] },
-  { title: "Brand Design", desc: "Crafting comprehensive brand systems that tell your story.", price: "PKR 4000", features: ["Logo Design", "Brand Guidelines", "Brand Strategy"] },
+  { title: "Websites & E-commerce", desc: "Build responsive websites and online stores using platforms like Next.js, Shopify, and headless CMS to sell and scale.", price: "PKR 2000", features: ["Responsive Sites", "Shopify/Headless", "Payment Integration"] },
+  { title: "UI / UX Design", desc: "User-centered interfaces and prototypes that improve conversion and usability across devices.", price: "PKR 1500", features: ["Prototyping", "User Flows", "A/B Guidance"] },
+  { title: "Web Apps & Integrations", desc: "Production web applications, backend APIs, and third-party integrations to automate workflows and connect systems.", price: "PKR 3000", features: ["APIs & Webhooks", "Integrations", "Scalable Architecture"] },
+  { title: "Product Strategy", desc: "Roadmaps and MVP planning to prioritize features, validate ideas, and ship with minimal risk.", price: "PKR 4000", features: ["Roadmaps", "MVP Planning", "Launch Support"] },
 ];
 
 function ServicesSection() {
@@ -298,13 +378,20 @@ function ServicesSection() {
       <div className="container mx-auto px-6 md:px-12">
         <div className="text-center mb-16">
           <h2 className="font-display font-bold text-4xl md:text-6xl">Services</h2>
-          <p className="text-muted-foreground mt-4 max-w-2xl mx-auto font-body">everything starts with thorough research and iterative experimentation.</p>
+          <p className="text-muted-foreground mt-4 max-w-2xl mx-auto font-body">everything starts with data, rapid experiments, and clear metrics to validate AI-driven ideas.</p>
           <span className="text-xs uppercase tracking-widest text-muted-foreground mt-4 block">what uses designing, ideas and developing, what user need ©</span>
         </div>
 
         <div className="grid md:grid-cols-2 gap-6">
           {services.map((service, i) => (
-            <div key={i} className="group p-8 md:p-12 border border-border hover:border-accent/50 transition-all">
+            <motion.div
+              key={i}
+              className="group p-8 md:p-12 border border-border hover:border-accent/50 transition-all"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.6, delay: i * 0.1 }}
+            >
               <div className="flex items-start justify-between mb-6">
                 <span className="text-accent text-sm">( 0{i + 1} )</span>
               </div>
@@ -325,7 +412,7 @@ function ServicesSection() {
                   Book A Call
                 </a>
               </Button>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
@@ -346,10 +433,23 @@ function StatsSection() {
       <div className="container mx-auto px-6 md:px-12">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {stats.map((stat, i) => (
-            <div key={i} className="text-center">
-              <span className="font-display font-bold text-4xl md:text-6xl text-accent">{stat.value}</span>
+            <motion.div
+              key={i}
+              className="text-center"
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ type: "spring", stiffness: 100, damping: 15, delay: i * 0.12 }}
+            >
+              <motion.span
+                className="font-display font-bold text-4xl md:text-6xl text-accent block"
+                whileInView={{ textShadow: "0 0 25px hsl(var(--accent) / 0.25)" }}
+                viewport={{ once: true }}
+              >
+                {stat.value}
+              </motion.span>
               <span className="text-xs uppercase tracking-widest text-muted-foreground block mt-2">[ {stat.label} ]</span>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
@@ -376,10 +476,24 @@ function ExperienceSection() {
 
         <div className="space-y-6">
           {experiences.map((exp, i) => (
-            <div key={i} className="group p-6 md:p-8 border border-border hover:border-accent/50 transition-all">
+            <motion.div
+              key={i}
+              className="group p-6 md:p-8 border border-border"
+              initial={{ opacity: 0, x: -40 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              whileHover={{ paddingLeft: 32, borderColor: "var(--accent)" }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ type: "spring", stiffness: 90, damping: 15, delay: i * 0.08 }}
+            >
               <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div>
-                  <h3 className="font-display font-bold text-xl md:text-2xl group-hover:text-accent transition-colors">{exp.company}</h3>
+                  <motion.h3
+                    className="font-display font-bold text-xl md:text-2xl"
+                    whileHover={{ color: "var(--accent)" }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    {exp.company}
+                  </motion.h3>
                   <span className="text-xs uppercase tracking-widest text-muted-foreground">[ {exp.period} ]</span>
                 </div>
                 <div className="md:text-right">
@@ -387,7 +501,7 @@ function ExperienceSection() {
                   <p className="text-muted-foreground text-sm mt-2 max-w-sm font-body">{exp.desc}</p>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
@@ -415,17 +529,37 @@ function SkillsSection() {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {skills.map((skill, i) => (
-            <div key={i} className="p-6 border border-border hover:border-accent/50 transition-all group">
+            <motion.div
+              key={i}
+              className="p-6 border border-border group"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              whileHover={{ scale: 1.08, borderColor: "var(--accent)" }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ type: "spring", stiffness: 100, damping: 15, delay: i * 0.08 }}
+            >
               <div className="flex items-center justify-between mb-4">
-                <h3 className="font-display font-bold text-xl group-hover:text-accent transition-colors">{skill.name}</h3>
+                <motion.h3
+                  className="font-display font-bold text-xl"
+                  whileHover={{ color: "var(--accent)" }}
+                  transition={{ duration: 0.3 }}
+                >
+                  {skill.name}
+                </motion.h3>
                 <span className="text-xs text-muted-foreground">[ {skill.percentage} ]</span>
               </div>
               <span className="text-xs uppercase tracking-widest text-accent">{skill.type}</span>
               <p className="text-muted-foreground text-sm mt-4 font-body">{skill.desc}</p>
               <div className="mt-4 h-1 bg-border rounded-full overflow-hidden">
-                <div className="h-full bg-accent rounded-full transition-all duration-1000" style={{ width: skill.percentage }} />
+                <motion.div
+                  className="h-full bg-accent rounded-full"
+                  initial={{ width: 0 }}
+                  whileInView={{ width: skill.percentage }}
+                  viewport={{ once: true, amount: 0.5 }}
+                  transition={{ type: "spring", stiffness: 50, damping: 20, delay: 0.15 }}
+                />
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
@@ -452,13 +586,35 @@ function TestimonialsSection() {
 
         <div className="grid md:grid-cols-2 gap-6">
           {testimonials.map((testimonial, i) => (
-            <div key={i} className="p-8 md:p-10 border border-border hover:border-accent/50 transition-all group">
+            <motion.div
+              key={i}
+              className="p-8 md:p-10 border border-border group"
+              initial={{ opacity: 0, y: 40, rotateX: -10 }}
+              whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+              whileHover={{ y: -10, borderColor: "var(--accent)", boxShadow: "0 20px 40px rgba(0, 0, 0, 0.1)" }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ type: "spring", stiffness: 90, damping: 15, delay: i * 0.1 }}
+            >
               <div className="flex items-center justify-between mb-6">
-                <div className="flex items-center gap-1">
+                <motion.div
+                  className="flex items-center gap-1"
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.25 }}
+                >
                   {[...Array(5)].map((_, j) => (
-                    <Star key={j} className="w-4 h-4 fill-accent text-accent" />
+                    <motion.div
+                      key={j}
+                      initial={{ scale: 0 }}
+                      whileInView={{ scale: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ type: "spring", stiffness: 120, damping: 12, delay: 0.25 + j * 0.08 }}
+                    >
+                      <Star className="w-4 h-4 fill-accent text-accent" />
+                    </motion.div>
                   ))}
-                </div>
+                </motion.div>
                 <span className="text-xs text-muted-foreground">[ {testimonial.date} ]</span>
               </div>
               <p className="text-lg font-body leading-relaxed mb-8">"{testimonial.text}"</p>
@@ -471,7 +627,7 @@ function TestimonialsSection() {
                   <p className="text-muted-foreground text-sm">{testimonial.role}</p>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
@@ -483,12 +639,12 @@ function FAQSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   const faqs = [
-    { q: "What industries do you specialize in?", a: "I have experience working across various industries including but not limited to Technology, Healthcare, Fashion, Hospitality and Non Profit Organization." },
-    { q: "What is your typical project timeline?", a: "Project timelines vary based on scope and complexity. A typical branding project takes 4-6 weeks, while a full website design can take 8-12 weeks." },
-    { q: "Do you offer post-launch support or maintenance?", a: "Yes, I offer ongoing support and maintenance packages to ensure your digital products continue to perform optimally." },
-    { q: "What software and tools do you use for your designs?", a: "I primarily use Figma for UI/UX design, Framer for interactive prototypes, and various Adobe Creative Suite tools for graphic design." },
-    { q: "Can you provide examples of your previous work?", a: "Absolutely! Check out my portfolio section above or contact me for a detailed case study presentation." },
-    { q: "Do your designs are tailored to each client?", a: "Yes, every design is custom-made based on your unique brand identity, target audience, and business goals." },
+    { q: "What services do you offer?", a: "We build websites, e-commerce stores, and web applications using proven tools and platforms — from design and development to integrations and deployment." },
+    { q: "How long does a typical project take?", a: "Timelines vary: brochure sites can be 1–2 weeks, standard e-commerce stores 2–4 weeks, and custom web apps 4–12+ weeks depending on scope and integrations." },
+    { q: "Which platforms and technologies do you use?", a: "We work with Next.js, React, Tailwind, Shopify (and headless commerce), popular headless CMSs, and deploy to Vercel, Netlify or managed hosts as needed." },
+    { q: "Do you provide post-launch support?", a: "Yes — we offer hosting, updates, monitoring, and ongoing feature or maintenance plans to keep your site secure and current." },
+    { q: "Can you migrate my existing site or data?", a: "Absolutely — we handle content and product migrations, preserve SEO, and implement redirects to ensure a smooth transition." },
+    { q: "How do you price projects?", a: "Pricing depends on scope — we provide fixed-price quotes for defined deliverables or hourly/retainer options for ongoing work after a short discovery call." },
   ];
 
   return (
@@ -502,17 +658,43 @@ function FAQSection() {
 
         <div className="max-w-3xl mx-auto space-y-4">
           {faqs.map((faq, i) => (
-            <div key={i} className="border border-border hover:border-accent/50 transition-all">
-              <button onClick={() => setOpenIndex(openIndex === i ? null : i)} className="w-full p-6 flex items-center justify-between text-left">
+            <motion.div
+              key={i}
+              className="border border-border"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.5, delay: i * 0.06 }}
+            >
+              <motion.button
+                onClick={() => setOpenIndex(openIndex === i ? null : i)}
+                className="w-full p-6 flex items-center justify-between text-left"
+                whileHover={{ backgroundColor: "rgba(255, 0, 0, 0.03)" }}
+                transition={{ duration: 0.3 }}
+              >
                 <span className="font-display font-semibold text-lg pr-8">{faq.q}</span>
-                <ChevronDown className={`w-5 h-5 text-accent transition-transform ${openIndex === i ? "rotate-180" : ""}`} />
-              </button>
-              {openIndex === i && (
+                <motion.div
+                  animate={{ rotate: openIndex === i ? 180 : 0 }}
+                  transition={{ type: "spring", stiffness: 200, damping: 20 }}
+                >
+                  <ChevronDown className="w-5 h-5 text-accent" />
+                </motion.div>
+              </motion.button>
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={
+                  openIndex === i
+                    ? { height: "auto", opacity: 1 }
+                    : { height: 0, opacity: 0 }
+                }
+                transition={{ type: "spring", stiffness: 100, damping: 20 }}
+                className="overflow-hidden"
+              >
                 <div className="px-6 pb-6">
                   <p className="text-muted-foreground font-body">{faq.a}</p>
                 </div>
-              )}
-            </div>
+              </motion.div>
+            </motion.div>
           ))}
         </div>
       </div>
@@ -525,25 +707,60 @@ function ContactSection() {
     <section id="contact" className="py-24 md:py-32 relative overflow-hidden">
       <div className="container mx-auto px-6 md:px-12">
         <div className="text-center mb-16">
-          <h2 className="font-display font-bold text-4xl md:text-7xl leading-tight mb-4">let's make your design shine</h2>
-          <p className="text-xl text-muted-foreground font-body max-w-xl mx-auto">"collaborate with me to craft exceptional designs that reflect your unique vision."</p>
+          <motion.h2
+            className="font-display font-bold text-4xl md:text-7xl leading-tight mb-4"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ type: "spring", stiffness: 80, damping: 15, delay: 0.1 }}
+          >
+            let's build digital products that solve problems
+          </motion.h2>
+          <motion.p
+            className="text-xl text-muted-foreground font-body max-w-xl mx-auto"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ type: "spring", stiffness: 80, damping: 15, delay: 0.25 }}
+          >
+            "Collaborate to design, build, and ship websites, stores, and web apps that move the business needle."
+          </motion.p>
         </div>
 
-        <div className="flex flex-col md:flex-row items-center justify-center gap-6 mb-16">
+        <motion.div
+          className="flex flex-col md:flex-row items-center justify-center gap-6 mb-16"
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ type: "spring", stiffness: 80, damping: 15, delay: 0.4 }}
+        >
           <Button variant="hero" size="lg" asChild>
-            <a href="mailto:hello@jaurden.design">
+            <motion.a
+              href="mailto:hello@jaurden.design"
+              whileHover={{ scale: 1.08 }}
+              whileTap={{ scale: 0.92 }}
+            >
               <Mail className="mr-2 w-5 h-5" />
               Contact Now
-            </a>
+            </motion.a>
           </Button>
-        </div>
+        </motion.div>
 
         <div className="flex flex-wrap items-center justify-center gap-8">
-          <a href="#" className="text-muted-foreground hover:text-foreground transition-colors font-body">instagram</a>
-          <a href="#" className="text-muted-foreground hover:text-foreground transition-colors font-body">Twitter</a>
-          <a href="#" className="text-muted-foreground hover:text-foreground transition-colors font-body">Facebook</a>
-          <a href="#" className="text-muted-foreground hover:text-foreground transition-colors font-body">Dribbble</a>
-          <a href="#" className="text-muted-foreground hover:text-foreground transition-colors font-body">LinkedIn</a>
+          {["instagram", "Twitter", "Facebook", "Dribbble", "LinkedIn"].map((social, i) => (
+            <motion.a
+              key={i}
+              href="#"
+              className="text-muted-foreground font-body"
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              whileHover={{ color: "var(--accent)", scale: 1.12 }}
+              viewport={{ once: true }}
+              transition={{ type: "spring", stiffness: 150, damping: 12, delay: 0.5 + i * 0.06 }}
+            >
+              {social}
+            </motion.a>
+          ))}
         </div>
       </div>
     </section>
