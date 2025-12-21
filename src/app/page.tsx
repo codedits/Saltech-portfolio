@@ -4,15 +4,15 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Calendar, ChevronDown, Download, Mail, Quote, Sparkles, Star, Subscript } from "lucide-react";
 // Use public folder for Next.js static images
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, Transition } from "framer-motion";
 import Reveal from "@/components/ui/reveal";
 
 // Shared motion transition presets for consistent, smooth animations
-const SPRING = { type: "spring", stiffness: 100, damping: 15 };
-const SPRING_SOFT = { type: "spring", stiffness: 90, damping: 15 };
-const SPRING_FAST = { type: "spring", stiffness: 120, damping: 12 };
-const SPRING_GENTLE = { type: "spring", stiffness: 50, damping: 20 };
-const EASE_OUT = { duration: 0.6, ease: "easeOut" };
+const SPRING: Transition = { type: "spring", stiffness: 100, damping: 15 } as Transition;
+const SPRING_SOFT: Transition = { type: "spring", stiffness: 90, damping: 15 } as Transition;
+const SPRING_FAST: Transition = { type: "spring", stiffness: 120, damping: 12 } as Transition;
+const SPRING_GENTLE: Transition = { type: "spring", stiffness: 50, damping: 20 } as Transition;
+const EASE_OUT: Transition = { duration: 0.6, ease: "easeOut" } as Transition;
 
 function Navigation() {
   const [time, setTime] = useState(new Date());
