@@ -7,6 +7,13 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Reveal from "@/components/ui/reveal";
 
+// Shared motion transition presets for consistent, smooth animations
+const SPRING = { type: "spring", stiffness: 100, damping: 15 };
+const SPRING_SOFT = { type: "spring", stiffness: 90, damping: 15 };
+const SPRING_FAST = { type: "spring", stiffness: 120, damping: 12 };
+const SPRING_GENTLE = { type: "spring", stiffness: 50, damping: 20 };
+const EASE_OUT = { duration: 0.6, ease: "easeOut" };
+
 function Navigation() {
   const [time, setTime] = useState(new Date());
   const [scrolled, setScrolled] = useState(false);
@@ -43,7 +50,7 @@ function Navigation() {
 
 function HeroSection() {
   return (
-    <section className="relative min-h-screen pt-24 pb-0 overflow-hidden">
+    <section className="relative min-h-screen pt-24 pb-0 overflow-x-visible">
       <div className="container mx-auto px-6 md:px-12 pt-8">
         <div className="flex items-center gap-2 text-accent text-sm font-medium animate-fade-up">
           <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
@@ -58,7 +65,8 @@ function HeroSection() {
               initial={{ opacity: 0, y: 60 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
-              className="font-display font-extrabold text-[14vw] md:text-[10vw] leading-[0.85] tracking-tighter text-foreground"
+              className="font-display font-extrabold leading-[0.85] tracking-tighter text-foreground whitespace-nowrap"
+              style={{ fontSize: 'clamp(36px, 12vw, 120px)' }}
             >
               SALTECH
             </motion.h1>
@@ -66,7 +74,8 @@ function HeroSection() {
               initial={{ opacity: 0, y: 60 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "easeOut", delay: 0.15 }}
-              className="font-display font-extrabold text-[14vw] md:text-[10vw] leading-[0.85] tracking-tighter text-foreground"
+              className="font-display font-extrabold leading-[0.85] tracking-tighter text-foreground whitespace-nowrap"
+              style={{ fontSize: 'clamp(36px, 12vw, 120px)' }}
             >
               .PVT
             </motion.h1>
@@ -133,7 +142,7 @@ function ProjectsSection() {
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
               whileHover={{ y: -12 }}
               viewport={{ once: true, amount: 0.2 }}
-              transition={{ type: "spring", stiffness: 100, damping: 15, delay: i * 0.08 }}
+              transition={{ ...SPRING, delay: i * 0.08 }}
             >
               <motion.img
                 src={project.image}
@@ -221,7 +230,7 @@ function AboutSection() {
                     whileInView={{ opacity: 1, scale: 1 }}
                     whileHover={{ scale: 1.08, borderColor: "var(--accent)" }}
                     viewport={{ once: true, amount: 0.3 }}
-                    transition={{ type: "spring", stiffness: 100, damping: 15, delay: i * 0.05 }}
+                    transition={{ ...SPRING, delay: i * 0.05 }}
                   >
                     <motion.span
                       className="font-display font-semibold text-sm"
@@ -295,7 +304,7 @@ function WorkMethodSection() {
               whileInView={{ opacity: 1, y: 0 }}
               whileHover={{ y: -10, borderColor: "var(--accent)" }}
               viewport={{ once: true, amount: 0.2 }}
-              transition={{ type: "spring", stiffness: 100, damping: 15, delay: i * 0.1 }}
+              transition={{ ...SPRING, delay: i * 0.1 }}
             >
               <span className="text-xs text-muted-foreground">[ {method.num} ]</span>
               <motion.div
@@ -439,7 +448,7 @@ function StatsSection() {
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true, amount: 0.3 }}
-              transition={{ type: "spring", stiffness: 100, damping: 15, delay: i * 0.12 }}
+              transition={{ ...SPRING, delay: i * 0.12 }}
             >
               <motion.span
                 className="font-display font-bold text-4xl md:text-6xl text-accent block"
@@ -483,7 +492,7 @@ function ExperienceSection() {
               whileInView={{ opacity: 1, x: 0 }}
               whileHover={{ paddingLeft: 32, borderColor: "var(--accent)" }}
               viewport={{ once: true, amount: 0.2 }}
-              transition={{ type: "spring", stiffness: 90, damping: 15, delay: i * 0.08 }}
+              transition={{ ...SPRING_SOFT, delay: i * 0.08 }}
             >
               <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div>
@@ -536,7 +545,7 @@ function SkillsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               whileHover={{ scale: 1.08, borderColor: "var(--accent)" }}
               viewport={{ once: true, amount: 0.2 }}
-              transition={{ type: "spring", stiffness: 100, damping: 15, delay: i * 0.08 }}
+              transition={{ ...SPRING, delay: i * 0.08 }}
             >
               <div className="flex items-center justify-between mb-4">
                 <motion.h3
@@ -556,7 +565,7 @@ function SkillsSection() {
                   initial={{ width: 0 }}
                   whileInView={{ width: skill.percentage }}
                   viewport={{ once: true, amount: 0.5 }}
-                  transition={{ type: "spring", stiffness: 50, damping: 20, delay: 0.15 }}
+                  transition={{ ...SPRING_GENTLE, delay: 0.15 }}
                 />
               </div>
             </motion.div>
@@ -568,10 +577,10 @@ function SkillsSection() {
 }
 
 const testimonials = [
-  { name: "Jesse Oriko", role: "product manager / noise & co", date: "april 2024", text: "I was struck by how seamlessly everything flowed and how easy it was to navigate. Their team meticulously perfects every detail—a truly engaging and enjoyable experience." },
-  { name: "Kate McCalilster", role: "cloud sales executive / ipsum", date: "march 2024", text: "I was amazed by how intuitive and user-friendly everything felt. It's clear their designers obsess over every pixel, every transition, to create experiences that delight." },
-  { name: "Watson Andrew", role: "royal caribbean / owner", date: "aug 2024", text: "The interface was strikingly user-friendly and fluid. It's clear their team dedicates themselves to perfecting every element and transition, resulting in perfection." },
-  { name: "Rick O'Connel", role: "design manager / market compliance", date: "july 2024", text: "The user experience was incredibly smooth and intuitive. It's evident that their designers pay meticulous attention to every detail, crafting an experience that truly impresses." },
+  { name: "Ayesha Khan", role: "Founder — Laari Boutique (Lahore)", date: "June 2025", text: "SALTECH rebuilt our online store and migrated 1,200 products without downtime. Sales picked up within a week and the admin interface is so easy my whole team uses it confidently." },
+  { name: "Imran Ali", role: "CEO — Raza Electronics (Karachi)", date: "May 2025", text: "We needed a fast, reliable storefront and integrations with our POS. They delivered on schedule, handled the payment gateways, and improved our checkout conversion significantly." },
+  { name: "Fatima Siddiqui", role: "Marketing Head — Noor Cosmetics (Islamabad)", date: "April 2025", text: "The website looks beautiful and loads quickly on mobile. SALTECH also helped with basic SEO and content migration — we saw organic visits rise in two weeks." },
+  { name: "Ahmed Raza", role: "Product Manager — ClickServe (Rawalpindi)", date: "March 2025", text: "Their team moved our app to a modern stack and added the features we needed for orders and subscriptions. Communication was clear and the support after launch was excellent." },
 ];
 
 function TestimonialsSection() {
@@ -593,7 +602,7 @@ function TestimonialsSection() {
               whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
               whileHover={{ y: -10, borderColor: "var(--accent)", boxShadow: "0 20px 40px rgba(0, 0, 0, 0.1)" }}
               viewport={{ once: true, amount: 0.2 }}
-              transition={{ type: "spring", stiffness: 90, damping: 15, delay: i * 0.1 }}
+              transition={{ ...SPRING_SOFT, delay: i * 0.1 }}
             >
               <div className="flex items-center justify-between mb-6">
                 <motion.div
