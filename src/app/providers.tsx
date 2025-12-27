@@ -5,6 +5,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useState } from "react";
+import { LazyMotion, domAnimation } from "framer-motion";
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   const [queryClient] = useState(() => new QueryClient());
@@ -14,7 +15,9 @@ export default function Providers({ children }: { children: React.ReactNode }) {
       <TooltipProvider>
         <Toaster />
         <Sonner />
-        {children}
+        <LazyMotion features={domAnimation}>
+          {children}
+        </LazyMotion>
       </TooltipProvider>
     </QueryClientProvider>
   );

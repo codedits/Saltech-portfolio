@@ -2,9 +2,10 @@
 
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, ExternalLink, ArrowUpRight, Github, Menu } from "lucide-react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import Link from "next/link";
 import { useState } from "react";
+import Image from "next/image";
 import {
   Sheet,
   SheetContent,
@@ -82,15 +83,15 @@ function ProjectMobileMenu() {
           </SheetHeader>
           
           <div className="flex flex-col gap-8">
-            <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}>
+            <m.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}>
               <Link href="/" onClick={() => setMenuOpen(false)} className="font-display font-bold text-4xl hover:text-accent transition-colors">HOME</Link>
-            </motion.div>
-            <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.1 }}>
+            </m.div>
+            <m.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.1 }}>
               <Link href="/projects" onClick={() => setMenuOpen(false)} className="font-display font-bold text-4xl text-accent">WORK</Link>
-            </motion.div>
-            <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }}>
+            </m.div>
+            <m.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }}>
               <Link href="/#services" onClick={() => setMenuOpen(false)} className="font-display font-bold text-4xl hover:text-accent transition-colors">SERVICES</Link>
-            </motion.div>
+            </m.div>
           </div>
 
           <div className="mt-auto pt-12 border-t border-white/5">
@@ -143,7 +144,7 @@ export default function ProjectsPage() {
       {/* Hero Section */}
       <section className="pt-28 sm:pt-32 md:pt-40 pb-12 md:pb-20 px-4 sm:px-6">
         <div className="max-w-7xl mx-auto">
-          <motion.div 
+          <m.div 
             initial="initial"
             animate="animate"
             variants={FADE_UP}
@@ -158,7 +159,7 @@ export default function ProjectsPage() {
             <p className="text-white/50 text-base sm:text-lg md:text-xl max-w-xl leading-relaxed">
               A collection of production-ready websites, web applications, and brand identities crafted with precision and purpose.
             </p>
-          </motion.div>
+          </m.div>
         </div>
       </section>
 
@@ -167,7 +168,7 @@ export default function ProjectsPage() {
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 sm:gap-12 md:gap-16">
             {projects.map((project, i) => (
-              <motion.div
+              <m.div
                 key={project.id}
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -178,10 +179,11 @@ export default function ProjectsPage() {
                 <Link href={project.url} target="_blank" className="block space-y-4 md:space-y-6">
                   {/* Image Container */}
                   <div className="relative aspect-[16/10] overflow-hidden rounded-xl md:rounded-2xl bg-white/5 border border-white/10">
-                    <img 
+                    <Image 
                       src={project.image} 
                       alt={project.title}
-                      className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100"
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-4 md:p-8">
                       <div className="flex items-center gap-2 text-white font-display font-bold uppercase text-[10px] md:text-sm tracking-widest">
@@ -223,7 +225,7 @@ export default function ProjectsPage() {
                     </div>
                   </div>
                 </Link>
-              </motion.div>
+              </m.div>
             ))}
           </div>
         </div>
