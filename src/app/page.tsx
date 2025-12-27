@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Calendar, ChevronDown, Download, Mail, Quote, Sparkles, Star, Subscript, Menu } from "lucide-react";
+import { ArrowRight, Calendar, ChevronDown, Download, Mail, Quote, Sparkles, Star, Subscript, Menu, ArrowUpRight } from "lucide-react";
 // Use public folder for Next.js static images
 import { useEffect, useState } from "react";
 import { motion, Transition } from "framer-motion";
@@ -30,6 +30,8 @@ function Navigation() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const navLinks = [
     { name: "ABOUT", href: "#about" },
@@ -68,7 +70,7 @@ function Navigation() {
 
       {/* Mobile Nav */}
       <div className="md:hidden flex items-center gap-4">
-        <Sheet>
+        <Sheet open={menuOpen} onOpenChange={setMenuOpen}>
           <SheetTrigger asChild>
             <Button variant="ghost" size="icon" className="text-foreground">
               <Menu className="w-6 h-6" />
@@ -91,11 +93,25 @@ function Navigation() {
                     transition={{ delay: i * 0.1 }}
                   >
                     {link.isLink ? (
-                      <Link href={link.href} className="font-display font-bold text-4xl hover:text-accent transition-colors">
+                      <Link href={link.href} onClick={() => setMenuOpen(false)} className="font-display font-bold text-4xl hover:text-accent transition-colors">
                         {link.name}
                       </Link>
                     ) : (
-                      <a href={link.href} className="font-display font-bold text-4xl hover:text-accent transition-colors">
+                      <a
+                        key={link.name}
+                        href={link.href}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setMenuOpen(false);
+                          const target = document.querySelector(link.href) as HTMLElement | null;
+                          if (target) {
+                            target.scrollIntoView({ behavior: 'smooth' });
+                          } else {
+                            window.location.hash = link.href;
+                          }
+                        }}
+                        className="font-display font-bold text-4xl hover:text-accent transition-colors"
+                      >
                         {link.name}
                       </a>
                     )}
@@ -105,12 +121,12 @@ function Navigation() {
 
               <div className="mt-auto pt-12 border-t border-white/5">
                 <p className="text-muted-foreground text-xs uppercase tracking-widest mb-6">Get in touch</p>
-                <a href="mailto:talhairfan1947@gmail.com" className="font-display font-bold text-xl hover:text-accent transition-colors">
+                <a href="mailto:talhairfan1947@gmail.com" onClick={() => setMenuOpen(false)} className="font-display font-bold text-xl hover:text-accent transition-colors">
                   talhairfan1947@gmail.com
                 </a>
                 <div className="flex gap-6 mt-8">
-                  <a href="#" className="text-xs font-bold tracking-widest hover:text-accent transition-colors">INSTAGRAM</a>
-                  <a href="#" className="text-xs font-bold tracking-widest hover:text-accent transition-colors">LINKEDIN</a>
+                  <a href="#" onClick={() => setMenuOpen(false)} className="text-xs font-bold tracking-widest hover:text-accent transition-colors">INSTAGRAM</a>
+                  <a href="#" onClick={() => setMenuOpen(false)} className="text-xs font-bold tracking-widest hover:text-accent transition-colors">LINKEDIN</a>
                 </div>
               </div>
             </div>
@@ -176,6 +192,36 @@ function HeroSection() {
   );
 }
 
+const featuredProjects = [
+  { 
+    id: 1, 
+    title: "Atelier", 
+    category: "FULL STACK", 
+    url: "https://atelier-amber.vercel.app",
+    image: "/atelier-amber.vercel.app_.jpg",
+    desc: "A high-performance e-commerce platform for a luxury fashion brand.",
+    tags: ["Next.js", "Tailwind", "Framer Motion"]
+  },
+  { 
+    id: 2, 
+    title: "Movrex", 
+    category: "Frontend", 
+    url: "https://movrex.vercel.app",
+    image: "/movrex.vercel.app_.jpg",
+    desc: "Movie suggestion web application that provides personalized recommendations.",
+    tags: ["Next", "Node.js", "MovieDB API"]
+  },
+  { 
+    id: 3, 
+    title: "PHOTOGEN", 
+    category: "Photography", 
+    url: "https://photogen2.vercel.app", 
+    image: "/photogen2.vercel.app_.jpg",
+    desc: "Lightroom preset sharing platform for photographers to share collections.",
+    tags: ["MongoDB", "Next.js", "Tailwind"]
+  },
+];
+
 function ProjectsSection() {
   return (
     <section id="work" className="py-16 md:py-32 bg-secondary/30">
@@ -196,11 +242,58 @@ function ProjectsSection() {
           AI-first products, scalable systems, human-centered interfaces, and engineering that solves real problems. The proof is in our projects.
         </p>
 
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+          {featuredProjects.map((project, i) => (
+            <motion.div
+              key={project.id}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: i * 0.1 }}
+              className="group"
+            >
+              <Link href={project.url} target="_blank" className="block space-y-4">
+                <div className="relative aspect-[16/10] overflow-hidden rounded-xl border border-foreground/10 bg-background">
+                  <img 
+                    src={project.image} 
+                    alt={project.title}
+                    className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <ArrowUpRight className="text-white w-8 h-8" />
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-accent font-display font-bold text-[10px] uppercase tracking-widest">
+                      {project.category}
+                    </span>
+                  </div>
+                  <h4 className="font-display font-bold text-2xl uppercase tracking-tighter group-hover:text-accent transition-colors">
+                    {project.title}
+                  </h4>
+                  <p className="text-muted-foreground text-sm line-clamp-2 font-body">
+                    {project.desc}
+                  </p>
+                  <div className="flex flex-wrap gap-2 pt-2">
+                    {project.tags.slice(0, 2).map((tag) => (
+                      <span key={tag} className="text-[9px] px-2 py-0.5 rounded-full border border-foreground/10 bg-background font-bold uppercase tracking-wider text-muted-foreground">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </Link>
+            </motion.div>
+          ))}
+        </div>
+
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
+          className="text-center md:text-left"
         >
           <Button 
             variant="hero" 
@@ -208,7 +301,7 @@ function ProjectsSection() {
             className="bg-accent hover:bg-accent/90 text-white rounded-full px-10 py-8 text-lg font-display font-bold uppercase tracking-widest transition-transform hover:scale-105 active:scale-95"
             asChild
           >
-            <Link href="/projects">view projects</Link>
+            <Link href="/projects">view all projects</Link>
           </Button>
         </motion.div>
       </div>

@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft, ExternalLink, ArrowUpRight, Github, Menu } from "lucide-react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { useState } from "react";
 import {
   Sheet,
   SheetContent,
@@ -62,6 +63,48 @@ const FADE_UP = {
   transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] }
 };
 
+function ProjectMobileMenu() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  return (
+    <Sheet open={menuOpen} onOpenChange={setMenuOpen}>
+      <SheetTrigger asChild>
+        <Button variant="ghost" size="icon" className="text-white">
+          <Menu className="w-6 h-6" />
+        </Button>
+      </SheetTrigger>
+      <SheetContent side="right" className="bg-black border-white/5 p-0 w-full sm:w-[400px]">
+        <div className="flex flex-col h-full p-8 text-white">
+          <SheetHeader className="text-left mb-12">
+            <SheetTitle className="font-display font-black text-2xl tracking-tighter text-white">
+              SALTECH<span className="text-accent">.</span>
+            </SheetTitle>
+          </SheetHeader>
+          
+          <div className="flex flex-col gap-8">
+            <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}>
+              <Link href="/" onClick={() => setMenuOpen(false)} className="font-display font-bold text-4xl hover:text-accent transition-colors">HOME</Link>
+            </motion.div>
+            <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.1 }}>
+              <Link href="/projects" onClick={() => setMenuOpen(false)} className="font-display font-bold text-4xl text-accent">WORK</Link>
+            </motion.div>
+            <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }}>
+              <Link href="/#services" onClick={() => setMenuOpen(false)} className="font-display font-bold text-4xl hover:text-accent transition-colors">SERVICES</Link>
+            </motion.div>
+          </div>
+
+          <div className="mt-auto pt-12 border-t border-white/5">
+            <p className="text-white/40 text-xs uppercase tracking-widest mb-6">Get in touch</p>
+            <a href="mailto:talhairfan1947@gmail.com" onClick={() => setMenuOpen(false)} className="font-display font-bold text-xl hover:text-accent transition-colors">
+              talhairfan1947@gmail.com
+            </a>
+          </div>
+        </div>
+      </SheetContent>
+    </Sheet>
+  );
+}
+
 export default function ProjectsPage() {
   return (
     <main className="min-h-screen bg-black text-white font-body selection:bg-accent selection:text-white">
@@ -88,44 +131,13 @@ export default function ProjectsPage() {
 
             {/* Mobile Menu for Projects Page */}
             <div className="md:hidden">
-              <Sheet>
-                <SheetTrigger asChild>
-                  <Button variant="ghost" size="icon" className="text-white">
-                    <Menu className="w-6 h-6" />
-                  </Button>
-                </SheetTrigger>
-                <SheetContent side="right" className="bg-black border-white/5 p-0 w-full sm:w-[400px]">
-                  <div className="flex flex-col h-full p-8 text-white">
-                    <SheetHeader className="text-left mb-12">
-                      <SheetTitle className="font-display font-black text-2xl tracking-tighter text-white">
-                        SALTECH<span className="text-accent">.</span>
-                      </SheetTitle>
-                    </SheetHeader>
-                    
-                    <div className="flex flex-col gap-8">
-                      <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}>
-                        <Link href="/" className="font-display font-bold text-4xl hover:text-accent transition-colors">HOME</Link>
-                      </motion.div>
-                      <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.1 }}>
-                        <Link href="/projects" className="font-display font-bold text-4xl text-accent">WORK</Link>
-                      </motion.div>
-                      <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }}>
-                        <Link href="/#services" className="font-display font-bold text-4xl hover:text-accent transition-colors">SERVICES</Link>
-                      </motion.div>
-                    </div>
-
-                    <div className="mt-auto pt-12 border-t border-white/5">
-                      <p className="text-white/40 text-xs uppercase tracking-widest mb-6">Get in touch</p>
-                      <a href="mailto:talhairfan1947@gmail.com" className="font-display font-bold text-xl hover:text-accent transition-colors">
-                        talhairfan1947@gmail.com
-                      </a>
-                    </div>
-                  </div>
-                </SheetContent>
-              </Sheet>
+              <ProjectMobileMenu />
             </div>
-          </div>
+
+            {/* ProjectMobileMenu component placed inline for clarity */}
+
         </div>
+      </div>
       </nav>
 
       {/* Hero Section */}
