@@ -3,10 +3,30 @@
 import { m } from "framer-motion";
 
 const services = [
-  { title: "Websites & E-commerce", desc: "Build responsive websites and online stores using platforms like Next.js, Shopify, and headless CMS to sell and scale.", price: "PKR 2000", features: ["Responsive Sites", "Shopify/Headless", "Payment Integration"] },
-  { title: "UI / UX Design", desc: "User-centered interfaces and prototypes that improve conversion and usability across devices.", price: "PKR 1500", features: ["Prototyping", "User Flows", "A/B Guidance"] },
-  { title: "Web Apps & Integrations", desc: "Production web applications, backend APIs, and third-party integrations to automate workflows and connect systems.", price: "PKR 3000", features: ["APIs & Webhooks", "Integrations", "Scalable Architecture"] },
-  { title: "Product Strategy", desc: "Roadmaps and MVP planning to prioritize features, validate ideas, and ship with minimal risk.", price: "PKR 4000", features: ["Roadmaps", "MVP Planning", "Launch Support"] },
+  {
+    title: "Landing Page",
+    desc: "Build responsive websites and online stores using platforms like Next.js, Shopify, and headless CMS to sell and scale.",
+    price: "PKR 8,000",
+    features: ["Responsive Design", "Next.js / Shopify", "Payment Integration"],
+  },
+  {
+    title: "Dynamic Website",
+    desc: "User-centered interfaces and prototypes that improve conversion and usability across devices.",
+    price: "PKR 20,000",
+    features: ["Prototyping & Wireframes", "User Flows & Testing", "A/B Testing Guidance"],
+  },
+  {
+    title: "E-commerce",
+    desc: "Production web applications, backend APIs, and third-party integrations to automate workflows and connect systems.",
+    price: "PKR 30,000",
+    features: ["Backend APIs & Webhooks", "Payment Gateways", "Third‑party Integrations"],
+  },
+  {
+    title: "CRM Setup",
+  desc: "Centralize customer data, automate lead follow-ups, and optimize your sales pipeline for better conversion.",
+  price: "PKR 40,000",
+  features: ["Lead & Contact Management", "Automated Sales Pipelines", "Reporting & Analytics"],
+  },
 ];
 
 export function ServicesSection() {
