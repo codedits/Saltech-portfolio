@@ -1,6 +1,5 @@
 "use client";
 
-import { m } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
@@ -18,24 +17,12 @@ export function HeroSection() {
       <div className="container mx-auto px-4 md:px-12 mt-8 md:mt-12">
         <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-8">
           <div className="flex-1">
-            <m.h1
-              initial={{ opacity: 0, y: 60 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-              className="font-display font-extrabold leading-[0.85] tracking-tighter text-foreground"
-              style={{ fontSize: 'clamp(36px, 12vw, 120px)' }}
-            >
+            <h1 className="font-display font-extrabold leading-[0.85] tracking-tighter text-foreground" style={{ fontSize: 'clamp(36px, 12vw, 120px)' }}>
               SALTECH
-            </m.h1>
-            <m.h1
-              initial={{ opacity: 0, y: 60 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: "easeOut", delay: 0.15 }}
-              className="font-display font-extrabold leading-[0.85] tracking-tighter text-foreground"
-              style={{ fontSize: 'clamp(36px, 12vw, 120px)' }}
-            >
+            </h1>
+            <h1 className="font-display font-extrabold leading-[0.85] tracking-tighter text-foreground" style={{ fontSize: 'clamp(36px, 12vw, 120px)' }}>
               .PVT
-            </m.h1>
+            </h1>
           </div>
 
           <div className="md:max-w-sm md:pt-8 space-y-6 animate-fade-up" style={{ animationDelay: "0.2s" }}>

@@ -46,7 +46,7 @@ export function AboutSection() {
             <div className="space-y-3">
               <div>
                 <span className="text-xs uppercase tracking-widest text-accent">about me</span>
-                <p className="text-background/90 text-sm mt-2">I am a Computer Science student at the University of Central Punjab (UCP), Lahore. I focus on building practical web and software solutions that leverage AI and modern tools to solve real business problems, improve user experience, and automate workflows. I enjoy learning new technologies, collaborating on projects, and delivering solutions that make an impact.</p>
+                <p className="text-background/90 text-sm mt-2">I am a Computer Science student at University Of Centeral Punjab with a focus on AI-integrated software engineering. I utilize AI tools to streamline the coding process and build intelligent applications that automate complex workflows. Dedicated to delivering rapid, high-quality web solutions that bridge the gap between modern technology and practical business needs.</p>
               </div>
 
               <div>

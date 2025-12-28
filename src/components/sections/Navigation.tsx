@@ -24,6 +24,14 @@ export function Navigation() {
 
   const [menuOpen, setMenuOpen] = useState(false);
 
+  const handleLogoClick = (e: any) => {
+    // If already on the homepage, smooth scroll to top instead of navigating
+    if (typeof window !== 'undefined' && window.location.pathname === "/") {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
   const navLinks = [
     { name: "ABOUT", href: "#about" },
     { name: "WORK", href: "/projects", isLink: true },
@@ -33,7 +41,7 @@ export function Navigation() {
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 md:px-12 py-4 md:py-6 bg-background border-b border-white/10 ${scrolled ? 'shadow-sm' : ''}`}>
       <div className="flex items-center gap-8">
-        <Link href="/" className="group">
+        <Link href="/" onClick={handleLogoClick} className="group">
           <span className="font-display md:font-body md:font-extrabold font-black text-lg md:text-xl tracking-normal md:tracking-normal">
             SALTECH
           </span>
